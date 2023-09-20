@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // import controller
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/landing', [LandingController::class, 'index']);
+Route::get('/landing/profile', [ProfileController::class, 'index']);
 
 /*
 *

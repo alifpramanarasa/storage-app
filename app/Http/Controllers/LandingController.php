@@ -19,4 +19,9 @@ class LandingController extends Controller
 
     return view('landing/index', $data);
   }
+
+  public function profile()
+  {
+    return view('profile/index');
+  }
 }
