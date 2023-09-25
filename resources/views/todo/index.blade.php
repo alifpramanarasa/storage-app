@@ -33,6 +33,7 @@
             <th>Description</th>
             <th>Completed</th>
             <th>Created At</th>
+            <th>Action</th>
         </tr>
         @foreach($todos as $todo)
         <tr>
@@ -41,13 +42,16 @@
             <td> {{ $todo->description}} </td>
             <td> {{ $todo->completed == 1 ? "COMPLETED" : "NOT COMPLETED" }} </td>
             <td> {{ $todo->created_at }} </td>
+            <td>
+                <a href="{{ route('todo.edit', $todo->id) }}">Edit</a>
+                <form action="{{ route('todo.destroy', $todo->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         @endforeach
-        <!-- <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-        </tr> -->
     </table>
 
 </body>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TodoRequest;
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use Illuminate\Support\Str;
 
 class TodoController extends Controller
 {
@@ -29,15 +31,23 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        return view('todo.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TodoRequest $request)
     {
-        //
+        $input = $request->all();
+        $todo = new Todo();
+        $todo->title = $input['title'];
+        $todo->description = $input['description'];
+        $todo->slug = Str::slug($input['title']);
+        $todo->completed = $input['completed'];
+        $todo->save();
+
+        return redirect()->route('todo.index');
     }
 
     /**
@@ -45,7 +55,7 @@ class TodoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
@@ -53,15 +63,24 @@ class TodoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $todo = $this->todo->find($id);
+        return view('todo.edit', compact('todo'));       
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TodoRequest $request, string $id)
     {
-        //
+        $input = $request->all();
+        $todo = $this->todo->find($id);
+        $todo->title = $input['title'];
+        $todo->description = $input['description'];
+        $todo->slug = Str::slug($input['title']);
+        $todo->completed = $input['completed'];
+        $todo->save();
+
+        return redirect()->route('todo.index');
     }
 
     /**
@@ -69,6 +88,9 @@ class TodoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $todo = $this->todo->find($id);
+        $todo->delete();
+
+        return redirect()->route('todo.index');
     }
 }
