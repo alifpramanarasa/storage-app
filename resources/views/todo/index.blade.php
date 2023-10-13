@@ -29,6 +29,7 @@
     <table>
         <tr>
             <th>No</th>
+            <th>Category</th>
             <th>Title</th>
             <th>Description</th>
             <th>Completed</th>
@@ -38,6 +39,7 @@
         @foreach($todos as $todo)
         <tr>
             <td> {{ $todo->id }} </td>
+            <td> {{ $todo->category->name }} - {{ $todo->subCategories->name }} </td>
             <td> {{$todo->title}} </td>
             <td> {{ $todo->description}} </td>
             <td> {{ $todo->completed == 1 ? "COMPLETED" : "NOT COMPLETED" }} </td>
